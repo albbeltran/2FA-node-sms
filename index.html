@@ -1,11 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2FA SMS</title>
 </head>
+
 <body>
-    
+    <h1 class="title--main">2FA SMS</h1>
+
+    <br>
+
+    <section id="signup-container">
+        <h3 class="title">Sign Up</h3>
+        <form action="/signup" method="POST" id="signup-form">
+            <label for="signup-number">Number:</label>
+            <input type="number" id="signup-number" name="signup-number">
+
+            <label for="signup-password">Password:</label>
+            <input type="password" id="signup-password" name="signup-password">
+
+            <input type="submit" value="Submit">
+        </form>
+    </section>
+
+    <br>
+
+    <section id="signin-container">
+        <h3 class="title">Sign In</h3>
+        <form action="/signin" method="POST" id="signin-form">
+            <label for="signin-number">Number:</label>
+            <input type="number" id="signin-number" name="signin-number">
+
+            <label for="signin-password">Password:</label>
+            <input type="password" id="signin-password" name="signin-password">
+
+            <input type="submit" value="Submit">
+        </form>
+    </section>
+
+    <section id="verify-container">
+        <h3 class="title">Verification</h3>
+        <p class="paragraph">Please enter the code sent to the phone number registered.</p>
+
+        <form action="/verify" method="POST" id="verify-form">
+            <label for="code">Code:</label>
+            <input type="number" id="code" name="code">
+
+            <input type="submit" value="Submit">
+        </form>
+    </section>
+
+    <script>
+        let signup = document.getElementById('signup-form')
+        let signin = document.getElementById('signin-form')
+        let verify = document.getElementById('verify-form')
+        let verifyContainer = document.getElementById('verify-container')
+
+        signup.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            let formSignup = new FormData(signup)
+
+            const res = await fetch('http://localhost:3500/signup', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    number: formSignup.get('signup-number'),
+                    password: formSignup.get('signup-password')
+                })
+            })
+
+            console.log(res.status)
+        })
+
+        signin.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            let formSignin = new FormData(signin)
+
+            const res = await fetch('http://localhost:3500/signin', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    number: formSignin.get('signin-number'),
+                    password: formSignin.get('signin-password')
+                })
+            })
+
+            console.log(res.status)
+
+            if(res.status === 200) verifyContainer.style.display = 'block'
+        })
+
+        verify.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            let formVerify = new FormData(verify)
+
+            const res = await fetch('http://localhost:3500/signup', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    code: formVerify.get('code')
+                })
+            })
+
+            console.log(res.status)
+
+            if(res.status === 200) alert('Success!')
+        })
+
+    </script>
 </body>
+
 </html>
+
+<style>
+    #verify-container {
+        display: none;
+    }
+</style>
