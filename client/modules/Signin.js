@@ -1,5 +1,6 @@
 export default class Signin {
-    constructor() {
+    constructor(fetch) {
+        this.fetch = fetch
         this.form = document.getElementById('signin-form')
         this.verifyContainer = document.getElementById('verify-container')
         this.events()
@@ -24,14 +25,7 @@ export default class Signin {
     }
 
     async request() {
-        const res = await fetch('http://localhost:3500/signin', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.data)
-        })
+        const res = fetch('signin', this.data)
 
         console.log(res.status)
 

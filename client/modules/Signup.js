@@ -1,5 +1,6 @@
 export default class Signup {
-    constructor() {
+    constructor(fetchFunction) {
+        this.makeFetch = fetchFunction
         this.form = document.getElementById('signup-form')
         this.events()
     }
@@ -23,14 +24,8 @@ export default class Signup {
     }
 
     async request() {
-        const res = await fetch('http://localhost:3500/signup', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.data)
-        })
+        console.log(this.makeFetch)
+        const res = await this.makeFetch('signup', this.data)
 
         console.log(res.status)
     }

@@ -1,5 +1,6 @@
 export default class Verify {
-    constructor() {
+    constructor(fetch) {
+        this.fetch = fetch
         this.form = document.getElementById('verify-form')
         this.events()
     }
@@ -22,14 +23,7 @@ export default class Verify {
     }
 
     async request() {
-        const res = await fetch('http://localhost:3500/verify', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.data)
-        })
+        const res = fetch('verify', this.data)
 
         console.log(res.status)
 
