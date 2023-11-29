@@ -1,6 +1,6 @@
 export default class Verify {
-    constructor(fetch) {
-        this.fetch = fetch
+    constructor(fetchFunction) {
+        this.makeFetch = fetchFunction
         this.form = document.getElementById('verify-form')
         this.events()
     }
@@ -23,9 +23,7 @@ export default class Verify {
     }
 
     async request() {
-        const res = fetch('verify', this.data)
-
-        console.log(res.status)
+        const res = await this.makeFetch('verify', this.data)
 
         if(res.status === 200) alert('Success!')
     }

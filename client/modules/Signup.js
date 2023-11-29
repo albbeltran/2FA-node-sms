@@ -24,9 +24,9 @@ export default class Signup {
     }
 
     async request() {
-        console.log(this.makeFetch)
         const res = await this.makeFetch('signup', this.data)
 
-        console.log(res.status)
+        if(res.status === 200) alert('Success')
+        this.form.reset()
     }
 }

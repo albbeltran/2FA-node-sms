@@ -5,60 +5,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2FA SMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
 <body>
-    <h1 class="title--main">2FA SMS</h1>
+    <div class="w-50 m-auto p-5">
 
-    <br>
+        <h1 class="title--main mb-3">2FA SMS</h1>
+        <section id="signup-container" style="margin-bottom: 2.5rem;">
+            <h3 class="title">Sign Up</h3>
+            <form action="/signup" method="POST" id="signup-form">
+                <div class="input-group mb-3 gap-3">
+                    <input class="input-group-text text-start" type="number" id="signup-number" name="signup-number"
+                        placeholder="Phone number">
+                    <input class="input-group-text text-start" type="password" id="signup-password"
+                        name="signup-password" placeholder="Password">
+                </div>
 
-    <section id="signup-container">
-        <h3 class="title">Sign Up</h3>
-        <form action="/signup" method="POST" id="signup-form">
-            <label for="signup-number">Number:</label>
-            <input type="number" id="signup-number" name="signup-number">
+                <input type="submit" class="btn btn-primary" value="Submit">
+            </form>
+        </section>
 
-            <label for="signup-password">Password:</label>
-            <input type="password" id="signup-password" name="signup-password">
+        <section id="signin-container" class="mb-5">
+            <h3 class="title">Sign In</h3>
+            <form action="/signin" method="POST" id="signin-form">
+                <div class="input-group mb-3 gap-3">
+                    <input class="input-group-text text-start" type="number" id="signin-number" name="signin-number"
+                        placeholder="Phone number">
+                    <input class="input-group-text text-start" type="password" id="signin-password"
+                        name="signin-password" placeholder="Password">
+                </div>
 
-            <input type="submit" value="Submit">
-        </form>
-    </section>
+                <input type="submit" class="btn btn-primary" value="Submit">
+            </form>
+        </section>
 
-    <br>
+        <section id="verify-container">
+            <h3 class="title">Verification</h3>
+            <p class="paragraph">Please enter the code sent to the phone number registered.</p>
 
-    <section id="signin-container">
-        <h3 class="title">Sign In</h3>
-        <form action="/signin" method="POST" id="signin-form">
-            <label for="signin-number">Number:</label>
-            <input type="number" id="signin-number" name="signin-number">
+            <form action="/verify" method="POST" id="verify-form">
+                <div class="input-group mb-3 gap-3">
+                    <input class="input-group-text text-start" type="number" id="code" name="code" placeholder="Code">
+                </div>
 
-            <label for="signin-password">Password:</label>
-            <input type="password" id="signin-password" name="signin-password">
-
-            <input type="submit" value="Submit">
-        </form>
-    </section>
-
-    <section id="verify-container">
-        <h3 class="title">Verification</h3>
-        <p class="paragraph">Please enter the code sent to the phone number registered.</p>
-
-        <form action="/verify" method="POST" id="verify-form">
-            <label for="code">Code:</label>
-            <input type="number" id="code" name="code">
-
-            <input type="submit" value="Submit">
-        </form>
-    </section>
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </form>
+        </section>
+    </div>
 
     <script type="module" src="./main.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
 
 <style>
-    #verify-container {
+    /* #verify-container {
         display: none;
-    }
+    } */
 </style>
