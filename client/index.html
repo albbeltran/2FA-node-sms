@@ -18,9 +18,9 @@
             <form action="/signup" method="POST" id="signup-form">
                 <div class="input-group mb-3 gap-3">
                     <input class="input-group-text text-start" type="number" id="signup-number" name="signup-number"
-                        placeholder="Phone number">
+                        placeholder="Phone number" required>
                     <input class="input-group-text text-start" type="password" id="signup-password"
-                        name="signup-password" placeholder="Password">
+                        name="signup-password" placeholder="Password" required>
                 </div>
 
                 <input type="submit" class="btn btn-primary" value="Submit">
@@ -32,9 +32,9 @@
             <form action="/signin" method="POST" id="signin-form">
                 <div class="input-group mb-3 gap-3">
                     <input class="input-group-text text-start" type="number" id="signin-number" name="signin-number"
-                        placeholder="Phone number">
+                        placeholder="Phone number" required>
                     <input class="input-group-text text-start" type="password" id="signin-password"
-                        name="signin-password" placeholder="Password">
+                        name="signin-password" placeholder="Password" required>
                 </div>
 
                 <input type="submit" class="btn btn-primary" value="Submit">
@@ -50,7 +50,7 @@
                     <input class="input-group-text text-start" type="number" id="code" name="code" placeholder="Code">
                 </div>
 
-                <input class="btn btn-primary" type="submit" value="Submit">
+                <input class="btn btn-primary" type="submit" value="Submit" required>
             </form>
         </section>
     </div>

@@ -25,11 +25,10 @@ export default class Signin {
     }
 
     async request() {
-        console.log(this.data)
         const res = await this.makeFetch('signin', this.data)
-        console.log(res)
 
         if(res.status === 200) this.verifyContainer.style.display = 'block'
-        else if(res.status === 401) alert('Check your data')
+        else if(res.status === 401) alert('Incorrect user/password.')
+        else alert('There was an error. Try again')
     }
 }

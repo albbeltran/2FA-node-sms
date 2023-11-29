@@ -25,6 +25,7 @@ export default class Verify {
     async request() {
         const res = await this.makeFetch('verify', this.data)
 
-        if(res.status === 200) alert('Success!')
+        if (res.status === 200) alert('Success!')
+        else if (res.status === 401) alert('Incorrect code')
     }
 }

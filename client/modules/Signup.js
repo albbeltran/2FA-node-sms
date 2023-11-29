@@ -26,7 +26,10 @@ export default class Signup {
     async request() {
         const res = await this.makeFetch('signup', this.data)
 
-        if(res.status === 200) alert('Success')
-        this.form.reset()
+        if(res.status === 200) {
+            alert('Success')
+            this.form.reset()
+        } else if(res.status === 400) alert('User already exists.')
+        else alert('There was an error. Try again.')
     }
 }

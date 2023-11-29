@@ -22,16 +22,18 @@ app.use(express.urlencoded());       // for application/x-www-form-urlencoded
 // Routes
 app.post('/signup', (req, res) => {
     const user = req.body
-    users.push(user)
+    const usersExists = users.filter(userArr => user.number === userArr.number)[0]
 
-    console.log('USERS: ', users)
-
-    res.sendStatus(200)
+    if(!usersExists) {
+        users.push(user)
+        console.log('USERS: ', users)
+        res.sendStatus(200)
+    } else res.sendStatus(400)
 })
 
 let code = 0;
 
-app.post('/signin', (req, res) => {
+app.post('/signin', async (req, res) => {
     const user = req.body
 
     const userToCheck = users.filter(userArr => user.number === userArr.number)[0]
@@ -42,7 +44,7 @@ app.post('/signin', (req, res) => {
                 code = generateCode()
                 console.log(code)
 
-                sendMessage(userToCheck.number)
+                await sendMessage(userToCheck.number)
 
                 res.sendStatus(200)
             } catch {
@@ -54,15 +56,8 @@ app.post('/signin', (req, res) => {
 })
 
 app.post('/verify', (req, res) => {
-    console.log(req.body.code, code)
     if (Number(req.body.code) === code) res.sendStatus(200)
     else res.sendStatus(401)
-})
-
-
-// Server setup
-app.listen(port, () => {
-    console.log(`=> App is running in port ${port}`)
 })
 
 
@@ -71,16 +66,18 @@ function generateCode() {
     return Math.floor(100000 + Math.random() * 900000)
 }
 
-function sendMessage(number) {
+async function sendMessage(number) {
     const from = "2FA Test"
     const to = number
     const text = `Your code is: ${code}`
 
-    async function sendSMS() {
-        await client.sms.send({ to, from, text })
-            .then(resp => { console.log('Message sent successfully'); console.log(resp); })
-            .catch(err => { console.log('There was an error sending the messages.'); console.error(err); })
-    }
-
-    sendSMS()
+    await client.sms.send({ to, from, text })
+        .then(resp => { console.log('Message sent successfully'); console.log(resp); })
+        .catch(err => { console.log('There was an error sending the messages.'); console.error(err); })
 }
+
+
+// Server setup
+app.listen(port, () => {
+    console.log(`=> App is running in port ${port}`)
+})
